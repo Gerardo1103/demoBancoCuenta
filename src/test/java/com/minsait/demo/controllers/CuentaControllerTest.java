@@ -1,5 +1,6 @@
 package com.minsait.demo.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.minsait.demo.exception.DineroInsuficienteException;
 import com.minsait.demo.models.Cuenta;
@@ -121,9 +122,12 @@ class CuentaControllerTest {
         ;
     }
     @Test
-    void testTransferirException(){
-       // doThrow(DineroInsuficienteException.class).when(service.transferir(2l,1l,
-        //        new BigDecimal("6000000"),1l));
+    void testTransferirException() throws JsonProcessingException {
+        doThrow(DineroInsuficienteException.class).when(service).transferir(2l,1l,
+                new BigDecimal("6000000"),1l);
+        assertThrows(DineroInsuficienteException.class,()->service.transferir(2l,1l,
+                new BigDecimal("6000000"),1l));
+
     }
 
 
