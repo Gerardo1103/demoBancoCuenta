@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/cuentas")
@@ -51,11 +48,10 @@ public class CuentaController {
             response.put("status","OK");
             response.put("message","Transferencia realizada con exito");
             return  ResponseEntity.ok(response);
-        }
-        catch(DineroInsuficienteException exception){
-            response.put("status","");
-            response.put("message",exception);
-            return  ResponseEntity.ok(response);
+        }catch(DineroInsuficienteException exception){
+            response.put("status","OK");
+            response.put("message",exception.getMessage());
+            return ResponseEntity.ok(response);
         }
 
 
